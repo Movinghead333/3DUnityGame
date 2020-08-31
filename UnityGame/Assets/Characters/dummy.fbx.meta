@@ -30,6 +30,12 @@ ModelImporter:
   - first:
       74: 5506738597910051713
     second: metarig|jump_windup_with_event
+  - first:
+      74: 6194436781396641436
+    second: metarig|roll
+  - first:
+      74: 5506738597910051713
+    second: metarig|jump (1)
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -59,7 +65,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: metarig|jump_windup_with_event
+      name: metarig|jump (1)
       takeName: metarig|jump
       internalID: 0
       firstFrame: 0
@@ -148,7 +154,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 1
+        functionName: NewEvent
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ce0f72d6e690e274ba9e67979c82302e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -245,7 +259,7 @@ ModelImporter:
       takeName: metarig|run
       internalID: 0
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

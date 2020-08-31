@@ -48,18 +48,15 @@ public class PlayerController : MonoBehaviour
         {
             movement = runSpeed * Time.deltaTime * new Vector3(direction.x, 0, direction.y);
             isWalking = true;
-            animator.speed = runSpeed;
         }
         else if (Input.GetKey(KeyCode.S))
         {
             movement = -runSpeed * Time.deltaTime * new Vector3(direction.x, 0, direction.y);
             isWalking = true;
-            animator.speed = runSpeed;
         }
         else
         {
             isWalking = false;
-            animator.speed = 1f;
         }
 
         controller.Move(movement);
