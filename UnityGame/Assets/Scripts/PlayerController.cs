@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     // animation flags
     public bool isWalking = false;
     public bool isJumping = false;
-    public bool lightAttackOne = false;
+    public bool lightAttacking = false;
+    private bool nextLightAttackPossible = true;
 
     public Animator animator;
 
@@ -31,7 +32,29 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        #region Jumping
+        controller.Move(characterVelocity * Time.deltaTime);
+        if (!controller.isGrounded)
+        {
+            characterVelocity.y -= gravity * Time.deltaTime;
+        }
+        else
+        {
+            characterVelocity.y = -0.5f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded)
+        {
+            animator.SetTrigger("jump");
+            Debug.Log("jump");
+        }
+
+        animator.SetBool("jumping", !controller.isGrounded);
+        isJumping = !controller.isGrounded;
+
         Debug.Log("Grounded: " + controller.isGrounded);
+        #endregion
+
         #region Turning
         if (Input.GetKey(KeyCode.Q))
         {
@@ -48,17 +71,25 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         #region Attacking
-
-        #endregion
         if (Input.GetKeyDown(KeyCode.Mouse0) && controller.isGrounded)
         {
             Debug.Log("Attack!");
-            if (!lightAttackOne)
+            if (nextLightAttackPossible)
             {
-                lightAttackOne = true;
-                animator.SetBool("lightAttackOne", true);
+                isWalking = false;
+                animator.SetBool("walking", isWalking);
+                lightAttacking = true;
+                animator.SetBool("lightAttacking", lightAttacking);
+                return;
             }
         }
+
+        if (!nextLightAttackPossible)
+        {
+            return;
+        }
+        #endregion
+
         #region MovementInPlain
         Vector3 movement = Vector3.zero;
 
@@ -78,29 +109,10 @@ public class PlayerController : MonoBehaviour
         }
 
         controller.Move(movement);
-        #endregion
-
-        #region Jumping
-        controller.Move(characterVelocity * Time.deltaTime);
-        if (!controller.isGrounded)
-        {
-            characterVelocity.y -= gravity * Time.deltaTime;
-        }
-        else
-        {
-            characterVelocity.y = -0.5f;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded)
-        {
-            animator.SetTrigger("jump");
-            Debug.Log("jump");
-        }
-        #endregion
-
         animator.SetBool("walking", isWalking);
-        animator.SetBool("jumping", !controller.isGrounded);
-        isJumping = !controller.isGrounded;
+        #endregion
+
+        
     }
 
     public void StartJumpMovement()
@@ -112,5 +124,19 @@ public class PlayerController : MonoBehaviour
     public void PlayerLanded()
     {
         Debug.Log("player landed");
+    }
+
+    public void ResetLightAttackCooldown()
+    {
+        nextLightAttackPossible = true;
+        animator.SetBool("lightAttackReady", nextLightAttackPossible);
+        lightAttacking = false;
+        animator.SetBool("lightAttacking", lightAttacking);
+    }
+
+    public void SetLightAttackCooldown()
+    {
+        nextLightAttackPossible = false;
+        animator.SetBool("lightAttackReady", nextLightAttackPossible);
     }
 }
