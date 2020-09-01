@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            characterVelocity.y = -0.2f;
+            characterVelocity.y = -0.5f;
         }
 
         
