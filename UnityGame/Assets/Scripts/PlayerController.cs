@@ -46,13 +46,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded)
         {
             animator.SetTrigger("jump");
-            Debug.Log("jump");
+            //Debug.Log("jump");
         }
 
         animator.SetBool("jumping", !controller.isGrounded);
         isJumping = !controller.isGrounded;
 
-        Debug.Log("Grounded: " + controller.isGrounded);
+        //Debug.Log("Grounded: " + controller.isGrounded);
         #endregion
 
         #region Turning
