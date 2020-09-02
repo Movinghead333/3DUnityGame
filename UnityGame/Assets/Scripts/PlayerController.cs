@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float runSpeed = 2f;
-    public float turnSpeed = 2f;
 
     // animation flags
     public bool isWalking = false;
@@ -22,11 +21,27 @@ public class PlayerController : MonoBehaviour
     private float gravity = 9.81f * 2f;
     private float jumpSpeed = 8;
 
+    // rotation
+    private float turnSpeed = 30;
+
+    private float yawAngle = 0f;
+    private float pitchAngle = 0f;
+    private float height = 2.5f;
+
+    Vector2 oldMousePosition;
+    Vector2 mouseDelta;
+
+    Vector3 lookDir = Vector3.forward;
+
+    // main cam
+    public GameObject mainCamera;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
+        oldMousePosition = Input.mousePosition;
     }
 
     // Update is called once per frame
@@ -68,6 +83,19 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y));
+
+        // new rotation
+        Vector3 pivot = transform.position + new Vector3(0f, height, 0f);
+
+        Vector2 mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.z);
+        mouseDelta = mousePos - oldMousePosition;
+        oldMousePosition = mousePos;
+        yawAngle = (yawAngle + mouseDelta.x * Time.deltaTime * turnSpeed) % 360f;
+
+        // update directions
+        lookDir = Quaternion.AngleAxis(yawAngle, Vector3.up) * Vector3.forward;
+        direction = new Vector2(lookDir.x, lookDir.z);
+        SetCameraPose();
         #endregion
 
         #region Attacking
@@ -113,6 +141,14 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         
+    }
+
+    public void SetCameraPose()
+    {
+        float distance = 2f;
+        Vector3 pivot = transform.position + new Vector3(0f, height, 0f);
+        mainCamera.transform.position = pivot - lookDir.normalized * distance;
+        mainCamera.transform.LookAt(pivot, Vector3.up);
     }
 
     public void StartJumpMovement()

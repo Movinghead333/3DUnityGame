@@ -515,12 +515,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runSpeed: 7
-  turnSpeed: 2
-  isWalking: 0
+  isWalking: 1
   isJumping: 0
-  lightAttacking: 0
+  lightAttacking: 1
   animator: {fileID: 190684249}
   characterVelocity: {x: 0, y: 0, z: 0}
+  mainCamera: {fileID: 963194225}
 --- !u!143 &190684251
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1699,6 +1699,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1778,12 +1779,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38bf060efe7308e45bb7e2843e27905d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 190684252}
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a1c98716d8a6c4db682bd21f40eda1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1056711781
 PrefabInstance:
   m_ObjectHideFlags: 0
