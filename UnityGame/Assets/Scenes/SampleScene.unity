@@ -520,7 +520,6 @@ MonoBehaviour:
   lightAttacking: 1
   animator: {fileID: 190684249}
   characterVelocity: {x: 0, y: 0, z: 0}
-  mainCamera: {fileID: 963194225}
 --- !u!143 &190684251
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1797,6 +1796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a1c98716d8a6c4db682bd21f40eda1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 190684252}
 --- !u!1001 &1056711781
 PrefabInstance:
   m_ObjectHideFlags: 0

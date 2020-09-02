@@ -24,24 +24,14 @@ public class PlayerController : MonoBehaviour
     // rotation
     private float turnSpeed = 30;
 
-    private float yawAngle = 0f;
-    private float pitchAngle = 0f;
-    private float height = 2.5f;
-
-    Vector2 oldMousePosition;
-    Vector2 mouseDelta;
 
     Vector3 lookDir = Vector3.forward;
-
-    // main cam
-    public GameObject mainCamera;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
-        oldMousePosition = Input.mousePosition;
     }
 
     // Update is called once per frame
@@ -85,17 +75,10 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y));
 
         // new rotation
-        Vector3 pivot = transform.position + new Vector3(0f, height, 0f);
-
-        Vector2 mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.z);
-        mouseDelta = mousePos - oldMousePosition;
-        oldMousePosition = mousePos;
-        yawAngle = (yawAngle + mouseDelta.x * Time.deltaTime * turnSpeed) % 360f;
+        
 
         // update directions
-        lookDir = Quaternion.AngleAxis(yawAngle, Vector3.up) * Vector3.forward;
-        direction = new Vector2(lookDir.x, lookDir.z);
-        SetCameraPose();
+        direction = new Vector2(DSCameraController.lookDir.x, DSCameraController.lookDir.z);
         #endregion
 
         #region Attacking
@@ -121,34 +104,38 @@ public class PlayerController : MonoBehaviour
         #region MovementInPlain
         Vector3 movement = Vector3.zero;
 
+        isWalking = false;
+
         if (Input.GetKey(KeyCode.W))
         {
-            movement = runSpeed * Time.deltaTime * new Vector3(direction.x, 0, direction.y);
+            movement += new Vector3(direction.x, 0, direction.y);
             isWalking = true;
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            movement = -runSpeed * Time.deltaTime * new Vector3(direction.x, 0, direction.y);
+            movement -= new Vector3(direction.x, 0, direction.y);
             isWalking = true;
         }
-        else
+
+        if (Input.GetKey(KeyCode.A))
         {
-            isWalking = false;
+            movement -= new Vector3(direction.y, 0, -direction.x);
+            isWalking = true;
         }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            movement += new Vector3(direction.y, 0, -direction.x);
+            isWalking = true;
+        }
+
+        movement.Normalize();
+        movement = runSpeed * Time.deltaTime * movement.normalized;
 
         controller.Move(movement);
         animator.SetBool("walking", isWalking);
         #endregion
 
         
-    }
-
-    public void SetCameraPose()
-    {
-        float distance = 2f;
-        Vector3 pivot = transform.position + new Vector3(0f, height, 0f);
-        mainCamera.transform.position = pivot - lookDir.normalized * distance;
-        mainCamera.transform.LookAt(pivot, Vector3.up);
     }
 
     public void StartJumpMovement()
