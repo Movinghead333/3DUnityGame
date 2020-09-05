@@ -8,40 +8,43 @@ ModelImporter:
     second: metarig|Action
   - first:
       74: -5324238279805231817
-    second: metarig|Idle
+    second: Idle
   - first:
       74: -8284908221344111450
-    second: metarig|jump
+    second: JumpWindUp
   - first:
       74: 1833896802733735571
-    second: metarig|jump_idle
+    second: JumpIdle
   - first:
       74: 5079441538332351013
-    second: metarig|jump_landing
+    second: JumpLanding
   - first:
       74: -887982601649841707
     second: metarig|metarigAction
   - first:
       74: -5297019649661602221
-    second: metarig|run
+    second: Run
   - first:
       74: -7408968806781539716
-    second: metarig|walk
+    second: Walk
   - first:
       74: 5506738597910051713
     second: metarig|jump_windup_with_event
   - first:
       74: 6194436781396641436
-    second: metarig|roll
+    second: Roll
   - first:
       74: 5506738597910051713
     second: metarig|jump (1)
   - first:
       74: -2974838394195079783
-    second: metarig|Attack_Light_1
+    second: LightAttack1
   - first:
       74: 7008220320256809488
-    second: metarig|Attack_Light_2
+    second: LightAttack2
+  - first:
+      74: -2062074773753952957
+    second: Death
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -71,7 +74,73 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: metarig|jump (1)
+      name: Death
+      takeName: metarig|Death
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 35
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 1
+        functionName: StartJumpMovement
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ce0f72d6e690e274ba9e67979c82302e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle
+      takeName: metarig|Idle
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: JumpWindUp
       takeName: metarig|jump
       internalID: 0
       firstFrame: 0
@@ -108,73 +177,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: metarig|Idle
-      takeName: metarig|Idle
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 120
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: metarig|jump
-      takeName: metarig|jump
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 23
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
-      - time: 1
-        functionName: NewEvent
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: ce0f72d6e690e274ba9e67979c82302e,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: metarig|jump_idle
+      name: JumpIdle
       takeName: metarig|jump_idle
       internalID: 0
       firstFrame: 0
@@ -203,7 +206,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: metarig|jump_landing
+      name: JumpLanding
       takeName: metarig|jump_landing
       internalID: 0
       firstFrame: 0
@@ -232,36 +235,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: metarig|metarigAction
-      takeName: metarig|metarigAction
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 1
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: metarig|run
+      name: Run
       takeName: metarig|run
       internalID: 0
       firstFrame: 0
@@ -290,7 +264,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: metarig|walk
+      name: Walk
       takeName: metarig|walk
       internalID: 0
       firstFrame: 0
@@ -319,7 +293,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: metarig|Attack_Light_2
+      name: LightAttack2
       takeName: metarig|Attack_Light_2
       internalID: 0
       firstFrame: 0
@@ -364,7 +338,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: metarig|Attack_Light_1
+      name: LightAttack1
       takeName: metarig|Attack_Light_1
       internalID: 0
       firstFrame: 0
@@ -398,6 +372,43 @@ ModelImporter:
         messageOptions: 0
       - time: 0
         functionName: SetLightAttackCooldown
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: ce0f72d6e690e274ba9e67979c82302e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Roll
+      takeName: metarig|roll
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 1
+        functionName: OnRollingFinished
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: ce0f72d6e690e274ba9e67979c82302e,
           type: 3}
