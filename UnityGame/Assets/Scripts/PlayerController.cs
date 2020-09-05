@@ -6,11 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     public float runSpeed = 2f;
 
+    private float rollingSpeed = 6.5f;
+
     // animation flags
     public bool isWalking = false;
     public bool isJumping = false;
     public bool lightAttacking = false;
     private bool nextLightAttackPossible = true;
+    private bool rolling = false;
 
     public Animator animator;
 
@@ -22,10 +25,10 @@ public class PlayerController : MonoBehaviour
     private float jumpSpeed = 8;
 
     // rotation
-    private float turnSpeed = 30;
+    private float turnSpeed = 25;
 
 
-    Vector3 lookDir = Vector3.forward;
+    Vector3 facingDirection = Vector3.forward;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +40,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        #region Jumping
+        #region Gravity
         controller.Move(characterVelocity * Time.deltaTime);
         if (!controller.isGrounded)
         {
@@ -47,8 +50,21 @@ public class PlayerController : MonoBehaviour
         {
             characterVelocity.y = -0.5f;
         }
+        #endregion
 
-        if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded)
+        #region Rolling
+
+        if (rolling)
+        {
+            controller.Move(facingDirection.normalized * Time.deltaTime * rollingSpeed);
+            return;
+        }
+
+        #endregion
+
+        #region Jumping
+
+        if (Input.GetKeyDown(KeyCode.J) && controller.isGrounded)
         {
             animator.SetTrigger("jump");
             //Debug.Log("jump");
@@ -61,24 +77,11 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         #region Turning
-        if (Input.GetKey(KeyCode.Q))
-        {
-            Vector2 left = new Vector2(-direction.y, direction.x);
-            direction = (direction + Time.deltaTime * left * turnSpeed).normalized;
-        }
-        else if (Input.GetKey(KeyCode.E))
-        {
-            Vector2 right = new Vector2(direction.y, -direction.x);
-            direction = (direction + Time.deltaTime * right * turnSpeed).normalized;
-        }
-
-        transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y));
-
-        // new rotation
-        
 
         // update directions
         direction = new Vector2(DSCameraController.lookDir.x, DSCameraController.lookDir.z);
+        //transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y));
+
         #endregion
 
         #region Attacking
@@ -129,13 +132,29 @@ public class PlayerController : MonoBehaviour
         }
 
         movement.Normalize();
+        if (movement != Vector3.zero)
+        {
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                Quaternion.LookRotation(movement, Vector3.up),
+                Time.deltaTime * turnSpeed);
+
+            facingDirection = transform.forward;
+
+
+            if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded)
+            {
+                rolling = true;
+                animator.SetBool("rolling", rolling);
+                return;
+            }
+        }
+
         movement = runSpeed * Time.deltaTime * movement.normalized;
 
         controller.Move(movement);
         animator.SetBool("walking", isWalking);
         #endregion
-
-        
     }
 
     public void StartJumpMovement()
@@ -161,5 +180,11 @@ public class PlayerController : MonoBehaviour
     {
         nextLightAttackPossible = false;
         animator.SetBool("lightAttackReady", nextLightAttackPossible);
+    }
+
+    public void OnRollingFinished()
+    {
+        rolling = false;
+        animator.SetBool("rolling", rolling);
     }
 }
